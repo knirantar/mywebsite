@@ -1,0 +1,42 @@
+*
+{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+nav
+{
+  height: 9vh;
+  width: 100%;
+  border: solid;
+}
+ul
+{
+  display: flex;
+  justify-content: space-around;
+  margin-left: 36vw;
+  margin-top: -2vh;
+  border: solid;
+}
+li
+{
+  font-size: 1.2em;
+  list-style: none;
+  border: solid;
+}
+.logo
+{
+  position: relative;
+  height: 6vh;
+  width :12vw;
+  top: 2vh;
+  left: 10%;
+  border: solid;
+  text-align: center;
+  font-size: 2em;
+}
+h1
+{
+  margin: 0px 0px;
+}
