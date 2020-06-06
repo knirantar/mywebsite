@@ -43,7 +43,7 @@ class Auth extends Component {
     uiConfig =
     {
     signInFlow: "popup",
-    signInSuccessUrl: window.location.href,
+    signInSuccessUrl: '/',
     signInOptions: [
       firebase.auth.GoogleAuthProvider.PROVIDER_ID,
       firebase.auth.FacebookAuthProvider.PROVIDER_ID,
@@ -80,7 +80,10 @@ class Auth extends Component {
   }
   return (
     <div>
-      <SignedIn ></SignedIn>
+      <SignedIn></SignedIn>
+      <p>Welcome {firebase.auth().currentUser.displayName}! You are now signed-in!</p>
+      <a onClick={() => firebase.auth().signOut()}>Sign-out</a>
+
     </div>
   );
   }
