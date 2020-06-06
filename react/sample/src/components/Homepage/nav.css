@@ -17,13 +17,11 @@ ul
   justify-content: space-around;
   margin-left: 36vw;
   margin-top: -2vh;
-  border: solid;
 }
 li
 {
   font-size: 1.2em;
   list-style: none;
-  border: solid;
 }
 .logo
 {
@@ -32,11 +30,43 @@ li
   width :12vw;
   top: 2vh;
   left: 10%;
-  border: solid;
   text-align: center;
   font-size: 2em;
+}
+a
+{
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
 }
 h1
 {
   margin: 0px 0px;
+}
+
+.social h1
+{
+  position: relative;
+  left: 35%;
+}
+.social p
+{
+  position: relative;
+  left: 25%;
+}
+
+.modal-form
+{
+  position: relative;
+  left: 35%;
+  top: 20%;
+  border: solid;
+  width: 30em;
+  justify-content: center;
+}
+
+.social
+{
+  position: relative;
+  height: 30em;
 }

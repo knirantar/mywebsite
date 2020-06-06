@@ -2,12 +2,33 @@ import React, {Component} from 'react'
 import firebase from 'firebase/app'
 import 'firebase/auth';
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth"
+import './Homepage/nav.css';
+import SignedIn from './SignedIn/SignedIn';
 
 
 firebase.initializeApp({
   apiKey: "AIzaSyBTxz8wIFzQpO03W7ROdjRDMpou-hjkfLU",
   authDomain: "travshare-d7769.firebaseapp.com"
 })
+
+
+const css = `
+.firebaseui-card-content {
+    padding:0px 0px;
+    display:table;
+    position: relative;
+    left: 20%;
+}
+.firebaseui-idp-list
+{
+  display:flex;
+  flex-direction:column;
+}
+.firebaseui-idp-button.mdl-button
+{
+  height:58px;
+}
+`
 
 class Auth extends Component {
 
@@ -22,6 +43,7 @@ class Auth extends Component {
     uiConfig =
     {
     signInFlow: "popup",
+    signInSuccessUrl: window.location.href,
     signInOptions: [
       firebase.auth.GoogleAuthProvider.PROVIDER_ID,
       firebase.auth.FacebookAuthProvider.PROVIDER_ID,
@@ -40,24 +62,27 @@ class Auth extends Component {
             console.log("user", user)
         })
     }
+
   render () {
-      return (
-        <div>
-        {this.state.isSignedIn ?
-        (
-            <span>
-            <div>Signed In!</div>
-            <button onClick={() => firebase.auth().signOut()}>Sign out!</button>
-            <h1>Welcome {firebase.auth().currentUser.displayName}</h1>
-            <img src={firebase.auth().currentUser.photoURL}  alt="My Awesome"/>
-            </span>
-        )
-        :
-        (
-          <StyledFirebaseAuth uiConfig={this.uiConfig} firebaseAuth={firebase.auth()}/>
-        )}
-        </div>
-      )
+    if (!this.state.isSignedIn) {
+    return (
+      <div className="social">
+        <h1>Travshare</h1>
+        <br />
+        <p>Signin with your social account</p>
+        <p>We won't post anything anywhere</p>
+        <StyledFirebaseAuth uiCallback={ui => ui.disableAutoSignIn()} uiConfig={this.uiConfig} firebaseAuth={firebase.auth()}/>
+        <style>
+          {css}
+        </style>
+      </div>
+    );
+  }
+  return (
+    <div>
+      <SignedIn ></SignedIn>
+    </div>
+  );
   }
 }
 
