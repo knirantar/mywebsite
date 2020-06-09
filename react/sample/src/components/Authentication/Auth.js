@@ -2,8 +2,8 @@ import React, {Component} from 'react'
 import firebase from 'firebase/app'
 import 'firebase/auth';
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth"
-import './Homepage/nav.css';
-import SignedIn from './SignedIn/SignedIn';
+import './auth.css'
+import {Redirect} from 'react-router-dom'
 
 
 firebase.initializeApp({
@@ -17,7 +17,10 @@ const css = `
     padding:0px 0px;
     display:table;
     position: relative;
-    left: 20%;
+    top: 10em;
+    left: -4em;
+    width: 30em;
+    border: solid;
 }
 .firebaseui-idp-list
 {
@@ -27,6 +30,7 @@ const css = `
 .firebaseui-idp-button.mdl-button
 {
   height:58px;
+  width: 30em;
 }
 `
 
@@ -43,7 +47,7 @@ class Auth extends Component {
     uiConfig =
     {
     signInFlow: "popup",
-    signInSuccessUrl: '/',
+    signInSuccessUrl: '/user',
     signInOptions: [
       firebase.auth.GoogleAuthProvider.PROVIDER_ID,
       firebase.auth.FacebookAuthProvider.PROVIDER_ID,
@@ -51,7 +55,7 @@ class Auth extends Component {
   ],
     callbacks:
     {
-      signInSuccessWithAuthResult: () => false
+      signInSuccessWithAuthResult: (authResult,redirectUrl) => true
     }
     }
     componentDidMount = () =>
@@ -71,7 +75,7 @@ class Auth extends Component {
         <br />
         <p>Signin with your social account</p>
         <p>We won't post anything anywhere</p>
-        <StyledFirebaseAuth uiCallback={ui => ui.disableAutoSignIn()} uiConfig={this.uiConfig} firebaseAuth={firebase.auth()}/>
+        <StyledFirebaseAuth uiConfig={this.uiConfig} firebaseAuth={firebase.auth()}/>
         <style>
           {css}
         </style>
@@ -79,13 +83,11 @@ class Auth extends Component {
     );
   }
   return (
-    <div>
-      <SignedIn></SignedIn>
-      <p>Welcome {firebase.auth().currentUser.displayName}! You are now signed-in!</p>
-      <a onClick={() => firebase.auth().signOut()}>Sign-out</a>
-
-    </div>
-  );
+        <Redirect to={{
+            pathname: "/user",
+            state: { isSignedIn: this.isSignedIn }
+          }} />
+  )
   }
 }
 
