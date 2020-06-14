@@ -1,22 +1,31 @@
 import React from 'react';
 import './App.css';
-import Navbar from './components/Homepage/Navbar'
-import Mainpage from './components/Homepage/Mainpage'
-import Auth from './components/Authentication/Auth'
-import SignedIn from './components/Authentication/SignedIn'
-import {BrowserRouter as Router,Route} from 'react-router-dom'
+import HeaderComponent from './components/HeaderComponent'
+import FooterComponent from './components/FooterComponent'
+import MenuComponent from './components/MenuComponent'
+import {dish} from './shared/dish'
+import {BrowserRouter} from 'react-router-dom'
 
-function App() {
+class App extends React.Component
+{
+  constructor(props)
+  {
+    super(props);
+    this.state = {
+      dishes:dish
+    };
+
+  }
+  render()
+  {
   return (
-    <Router>
       <div className="App">
-        <Route path="/" exact component={Navbar} />
-        <Route path="/" exact component={Mainpage} />
-        <Route path="/signin" component = {Auth} />
-        <Route path="/user" render={(props) => <SignedIn {...props}/>} />
+        <HeaderComponent />
+        <MenuComponent dishes = {this.state.dishes} />
+        <FooterComponent />
       </div>
-    </Router>
   );
+}
 }
 
 export default App;
